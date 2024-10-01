@@ -1,13 +1,13 @@
-import React from 'react';
+import {useCallback} from 'react';
 
 const SearchFilter = ({ filter, setFilter }) => {
-    const handleSearchChange = (event) => {
+    const handleSearchChange = useCallback((event) => {
         setFilter({ ...filter, search: event.target.value });
-    };
+    }, [filter, setFilter]);
 
-    const handleRoleChange = (event) => {
+    const handleRoleChange = useCallback((event) => {
         setFilter({ ...filter, role: event.target.value });
-    };
+    }, [filter, setFilter]);
 
     return (
         <div className="row">
@@ -27,6 +27,7 @@ const SearchFilter = ({ filter, setFilter }) => {
             </div>
             <div className="col-md-4">
                 <div className="form-group d-flex">
+                    <label htmlFor="filterRole" className="me-2">Role:</label>
                     <select
                         className="form-control"
                         id="filterRole"

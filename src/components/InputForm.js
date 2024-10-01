@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from "react";
 
-const InputForm = ({ users, setUsers, editIndex, setEditIndex }) => {
+const InputForm = ({editUser, setEditUser}) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [role, setRole] = useState("");
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        if (editIndex !== -1) {
-            setName(users[editIndex].name);
-            setEmail(users[editIndex].email);
-            setRole(users[editIndex].role);
+        if (editUser) {
+            setName(editUser.name);
+            setEmail(editUser.email);
+            setRole(editUser.role);
         }
-    }, [editIndex, users]);
+    }, [editUser]);
 
     const clear = () => {
         setName("");
@@ -28,16 +29,18 @@ const InputForm = ({ users, setUsers, editIndex, setEditIndex }) => {
     };
 
     const addUser = (name, email, role) => {
-        setUsers([...users, { name, email, role }]);
+        const id = users.length + 1;
+        setUsers([...users, { id, name, email, role }]);
         clear();
     };
 
-    const updateUser = (index, name, email, role) => {
+    const updateUser = () => {
         let updatedUsers = [...users];
-        updatedUsers[index] = { name, email, role };
+        const index = updatedUsers.findIndex(user => user.id === editUser.id);
+        updatedUsers[index] = { id: editUser.id, name, email, role };
         setUsers(updatedUsers);
         clear();
-        setEditIndex(-1);
+        setEditUser(null);
     };
 
     const handleSubmit = (event) => {
@@ -45,8 +48,8 @@ const InputForm = ({ users, setUsers, editIndex, setEditIndex }) => {
         if (!validateForm()) {
             return;
         }
-        if (editIndex !== -1) {
-            updateUser(editIndex, name, email, role);
+        if (editUser) {
+            updateUser();
         } else {
             addUser(name, email, role);
         }

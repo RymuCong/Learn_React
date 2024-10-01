@@ -1,8 +1,18 @@
-import * as React from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 
-const DataTable = ({ users, onEdit, onDelete }) => {
+const DataTable = ({users, setUsers ,setEditUser}) => {
+
+    const handleEdit = (id) => {
+        const user = users.find(user => user.id === id);
+        setEditUser(user);
+    };
+
+    const handleDelete = (id) => {
+        const updatedUsers = users.filter(user => user.id !== id);
+        setUsers(updatedUsers);
+    };
+
     const columns = [
         { field: 'id', headerName: '#', width: 100 },
         { field: 'name', headerName: 'Name', width: 250 },
@@ -16,13 +26,13 @@ const DataTable = ({ users, onEdit, onDelete }) => {
                 <div>
                     <button
                         className="btn btn-warning"
-                        onClick={() => onEdit(params.row.id - 1)}
+                        onClick={() => handleEdit(params.row.id)}
                     >
                         Edit
                     </button>
                     <button
                         className="btn btn-danger"
-                        onClick={() => onDelete(params.row.id - 1)}
+                        onClick={() => handleDelete(params.row.id)}
                     >
                         Delete
                     </button>
@@ -32,7 +42,7 @@ const DataTable = ({ users, onEdit, onDelete }) => {
     ];
 
     const rows = users.map((user, index) => ({
-        id: index + 1,
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
