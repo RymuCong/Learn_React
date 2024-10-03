@@ -1,16 +1,35 @@
 import { DataGrid} from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
+import {useNavigate} from "react-router-dom";
+import swal from 'sweetalert';
 
-const DataTable = ({users, setUsers ,setEditUser}) => {
+const DataTable = ({users, setUsers}) => {
+
+    const navigate = useNavigate();
 
     const handleEdit = (id) => {
-        const user = users.find(user => user.id === id);
-        setEditUser(user);
+        navigate(`/edit/${id}`);
     };
 
     const handleDelete = (id) => {
-        const updatedUsers = users.filter(user => user.id !== id);
-        setUsers(updatedUsers);
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this user data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    const updatedUsers = users.filter(user => user.id !== id);
+                    setUsers(updatedUsers);
+                    swal("Poof! Your user has been deleted!", {
+                        icon: "success",
+                    });
+                } else {
+                    swal("Your user is safe!");
+                }
+            });
     };
 
     const columns = [

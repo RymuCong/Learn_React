@@ -1,16 +1,11 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from "./components/Header";
-import {Route, Routes} from "react-router-dom";
-import Home from "./pages/Home";
+import {AuthWrapper} from "./auth/AuthWrapper";
 
 function App() {
     return (
         <div className="App">
-            <Header />
-            <Routes>
-                <Route path="/" element={<Home />} />
-            </Routes>
+            <AuthWrapper />
         </div>
     );
 }

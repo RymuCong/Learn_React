@@ -27,7 +27,7 @@ const SearchFilter = ({ filter, setFilter }) => {
             </div>
             <div className="col-md-4">
                 <div className="form-group d-flex">
-                    <label htmlFor="filterRole" className="me-2">Role:</label>
+                    <label htmlFor="filterRole" className="me-2 center-container">Role:</label>
                     <select
                         className="form-control"
                         id="filterRole"

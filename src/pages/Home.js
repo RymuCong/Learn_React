@@ -1,18 +1,11 @@
-import React, {useState} from 'react';
-import InputForm from '../components/InputForm';
-import UsersTable from '../components/UsersTable';
+import React from 'react';
 
 const Home = () => {
-
-    const [editUser, setEditUser] = useState(null);
-
     return (
         <div>
-            <InputForm editUser = {editUser} setEditUser={setEditUser} />
-            <UsersTable setEditUser = {setEditUser} />
+            This is Home Page!
         </div>
     );
 }
 
 export default Home;
-
